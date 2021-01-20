@@ -1,6 +1,16 @@
 <template>
   <div class="validate-input-container pb-3">
     <input
+      v-if="tag !== 'textarea'"
+      v-bind="$attrs"
+      class="form-control"
+      :class="{'is-invalid': inputRef.error}"
+      :value="inputRef.val"
+      @input="updateValue"
+      @blur="validateInput"
+    />
+    <textarea
+      v-else
       v-bind="$attrs"
       class="form-control"
       :class="{'is-invalid': inputRef.error}"
@@ -21,11 +31,17 @@ interface RuleProp {
 }
 export type RulesProp = RuleProp[]
 
+export type TagType = 'input' | 'textarea'
+
 export default defineComponent({
   name: 'ValidateInput',
   props: {
     rules: Array as PropType<RulesProp>,
-    modelValue: String // 实现双向绑定的属性
+    modelValue: String, // 实现双向绑定的属性
+    tag: {
+      type: String as PropType<TagType>,
+      default: 'input'
+    }
   },
   inheritAttrs: false,
 
