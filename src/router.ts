@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -17,7 +16,13 @@ const router = createRouter({
       path: '/column/:id',
       name: 'column',
       component: () => import('./views/ColumnDetail.vue')
+    },
+    {
+      path: '/create',
+      name: 'create',
+      component: () => import('./views/CreatePost.vue')
     }
   ]
 })
+
 export default router
